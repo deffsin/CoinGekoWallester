@@ -11,7 +11,7 @@ import SwiftUI
 struct CoinGekoWallesterApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MarketView()
         }
     }
 }
