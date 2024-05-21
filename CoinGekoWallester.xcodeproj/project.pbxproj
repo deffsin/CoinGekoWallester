@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1508EC312BFCE5C300BDB011 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1508EC302BFCE5C300BDB011 /* TabBar.swift */; };
+		1508EC612BFD0F5100BDB011 /* Double+customFormatted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1508EC602BFD0F5100BDB011 /* Double+customFormatted.swift */; };
+		1508EC632BFD109700BDB011 /* Swipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1508EC622BFD109700BDB011 /* Swipe.swift */; };
 		15E2BD4D2BFBDF78003EA777 /* CoinGekoWallesterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E2BD4C2BFBDF78003EA777 /* CoinGekoWallesterApp.swift */; };
 		15E2BD4F2BFBDF78003EA777 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E2BD4E2BFBDF78003EA777 /* ContentView.swift */; };
 		15E2BD512BFBDF7B003EA777 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15E2BD502BFBDF7B003EA777 /* Assets.xcassets */; };
@@ -25,6 +27,8 @@
 
 /* Begin PBXFileReference section */
 		1508EC302BFCE5C300BDB011 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
+		1508EC602BFD0F5100BDB011 /* Double+customFormatted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+customFormatted.swift"; sourceTree = "<group>"; };
+		1508EC622BFD109700BDB011 /* Swipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Swipe.swift; sourceTree = "<group>"; };
 		15E2BD492BFBDF78003EA777 /* CoinGekoWallester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoinGekoWallester.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15E2BD4C2BFBDF78003EA777 /* CoinGekoWallesterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinGekoWallesterApp.swift; sourceTree = "<group>"; };
 		15E2BD4E2BFBDF78003EA777 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -52,6 +56,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1508EC5F2BFD0F4200BDB011 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1508EC602BFD0F5100BDB011 /* Double+customFormatted.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		1508EC642BFD110300BDB011 /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				1508EC622BFD109700BDB011 /* Swipe.swift */,
+			);
+			path = Others;
+			sourceTree = "<group>";
+		};
 		15E2BD402BFBDF78003EA777 = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +142,8 @@
 			children = (
 				15E2BD642BFBE024003EA777 /* Utils */,
 				15E2BD692BFBE046003EA777 /* Assets */,
+				1508EC5F2BFD0F4200BDB011 /* Extensions */,
+				1508EC642BFD110300BDB011 /* Others */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -234,6 +256,8 @@
 				15E2BD4F2BFBDF78003EA777 /* ContentView.swift in Sources */,
 				15E2BD622BFBE016003EA777 /* CoinRowView.swift in Sources */,
 				15E2BD6B2BFBE061003EA777 /* CoinModel.swift in Sources */,
+				1508EC632BFD109700BDB011 /* Swipe.swift in Sources */,
+				1508EC612BFD0F5100BDB011 /* Double+customFormatted.swift in Sources */,
 				15E2BD662BFBE02C003EA777 /* NetworkingManager.swift in Sources */,
 				15E2BD992BFBE0F8003EA777 /* CoinDataService.swift in Sources */,
 				15E2BD4D2BFBDF78003EA777 /* CoinGekoWallesterApp.swift in Sources */,

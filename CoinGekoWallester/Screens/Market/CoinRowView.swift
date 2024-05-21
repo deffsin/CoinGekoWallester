@@ -9,67 +9,83 @@ import Foundation
 import SwiftUI
 
 struct CoinRowView: View {
-  @ObservedObject var viewModel: MarketViewModel
-
-  var body: some View {
-    NavigationView {
-      List(viewModel.allCoins) { coin in
-        HStack {
-          AsyncImage(url: URL(string: coin.image)!)
-            .frame(width: 50, height: 50)
-          VStack(alignment: .leading) {
-            Text(coin.name)
-              .font(.headline)
-            Text(coin.symbol.uppercased())
-              .font(.subheadline)
-              .foregroundColor(.gray)
-          }
-          Spacer()
-          VStack(alignment: .trailing) {
-            Text(String(format: "$%.2f", coin.currentPrice))
-              .font(.headline)
-            priceChangeView(timeFrame: "1h", change: coin.priceChangePercentage1H)
-            priceChangeView(timeFrame: "24h", change: coin.priceChangePercentage24H)
-            priceChangeView(timeFrame: "7d", change: coin.priceChangePercentage7D)
-          }
+    @ObservedObject var viewModel: MarketViewModel
+    
+    var body: some View {
+        VStack {
+            buildMainContent()
         }
-      }
-      .navigationTitle("Cryptocurrencies")
-      .navigationBarItems(
-        trailing: Button(
-          action: {
-            viewModel.fetchCrypto(forceUpdate: true)
-          },
-          label: {
-            Image(systemName: "arrow.clockwise")
-          })
-      )
-      .onAppear {
-        viewModel.fetchCrypto(forceUpdate: true)
-      }
-      .overlay(
-        Group {
-          if viewModel.isLoading {
-            ProgressView("Loading...")
-          } else if let errorMessage = viewModel.errorMessage {
-            Text(errorMessage)
-              .foregroundColor(.red)
-              .padding()
-          }
-        }
-      )
     }
-  }
-
-  private func priceChangeView(timeFrame: String, change: Double?) -> some View {
-    let displayChange = String(format: "%.2f%%", change ?? 0)
-    return Text("\(timeFrame): \(displayChange)")
-      .foregroundColor(getColorForPercentage(change))
-      .font(.subheadline)
-  }
-
-  private func getColorForPercentage(_ percentage: Double?) -> Color {
-    guard let percentage = percentage else { return .black }
-    return percentage >= 0 ? .green : .red
-  }
+    
+    @ViewBuilder
+    func buildMainContent() -> some View {
+        VStack(spacing: 5) {
+            ForEach(viewModel.allCoins, id: \.id) { coin in
+                Swipe(content: {
+                    HStack {
+                        leftSide(image: coin.image, symbol: coin.symbol, currentPrice: coin.currentPrice, priceChange: coin.priceChangePercentage1H ?? 0.0)
+                        Spacer()
+                        rightSide(marketCap: coin.marketCap ?? 0.0)
+                    }
+                    .padding()
+                }, right1: {
+                    Rectangle()
+                        .fill(Color.red)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }, right2: {
+                    Rectangle()
+                        .fill(Color.green)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }, right3: {
+                    Rectangle()
+                        .fill(Color.blue)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }, itemHeight: 60)
+            }
+        }
+        .onAppear {
+            viewModel.fetchCrypto(forceUpdate: true)
+        }
+    }
+    
+    func leftSide(image: String, symbol: String, currentPrice: Double, priceChange: Double) -> some View {
+        HStack {
+            VStack(spacing: 2) {
+                AsyncImage(url: URL(string: image)!)
+                    .frame(width: 15, height: 15)
+                
+                Text(symbol.uppercased())
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                    .fixedSize(horizontal: true, vertical: false)
+            }
+            .frame(width: 40)
+            
+            Text(currentPrice.customFormatted)
+            
+            priceChangeView(priceChange: priceChange)
+        }
+    }
+    
+    func rightSide(marketCap: Double?) -> some View {
+        HStack(spacing: 5) {
+            Text(marketCap?.customFormatted ?? "0")
+                .font(.headline)
+            
+            RoundedRectangle(cornerRadius: 2)
+                .frame(width: 80, height: 40)
+        }
+    }
+    
+    func priceChangeView(priceChange: Double?) -> some View {
+        let displayChange = String(format: "%.2f%%", priceChange ?? 0)
+        return Text("\(displayChange)")
+            .foregroundColor(getColorForPercentage(priceChange))
+            .font(.subheadline)
+    }
+    
+    func getColorForPercentage(_ percentage: Double?) -> Color {
+        guard let percentage = percentage else { return .black }
+        return percentage >= 0 ? .green : .red
+    }
 }
