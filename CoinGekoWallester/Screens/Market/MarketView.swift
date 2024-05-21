@@ -12,6 +12,7 @@ struct MarketView: View {
 
   var body: some View {
     ZStack {
+        Text("Test")
       CoinRowView(viewModel: viewModel)
     }
   }
