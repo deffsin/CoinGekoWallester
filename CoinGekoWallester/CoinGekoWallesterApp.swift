@@ -9,9 +9,9 @@ import SwiftUI
 
 @main
 struct CoinGekoWallesterApp: App {
-    var body: some Scene {
-        WindowGroup {
-            MarketView()
-        }
+  var body: some Scene {
+    WindowGroup {
+      MarketView()
     }
+  }
 }

@@ -18,6 +18,8 @@
 		15E2BD682BFBE038003EA777 /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E2BD672BFBE038003EA777 /* AsyncImage.swift */; };
 		15E2BD6B2BFBE061003EA777 /* CoinModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E2BD6A2BFBE061003EA777 /* CoinModel.swift */; };
 		15E2BD992BFBE0F8003EA777 /* CoinDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E2BD982BFBE0F8003EA777 /* CoinDataService.swift */; };
+		15E2BDBB2BFCA7DF003EA777 /* SwiftFormat in Frameworks */ = {isa = PBXBuildFile; productRef = 15E2BDBA2BFCA7DF003EA777 /* SwiftFormat */; };
+		15E2BDBD2BFCA7DF003EA777 /* SwiftFormatConfiguration in Frameworks */ = {isa = PBXBuildFile; productRef = 15E2BDBC2BFCA7DF003EA777 /* SwiftFormatConfiguration */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15E2BDBD2BFCA7DF003EA777 /* SwiftFormatConfiguration in Frameworks */,
+				15E2BDBB2BFCA7DF003EA777 /* SwiftFormat in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,6 +164,10 @@
 			dependencies = (
 			);
 			name = CoinGekoWallester;
+			packageProductDependencies = (
+				15E2BDBA2BFCA7DF003EA777 /* SwiftFormat */,
+				15E2BDBC2BFCA7DF003EA777 /* SwiftFormatConfiguration */,
+			);
 			productName = CoinGekoWallester;
 			productReference = 15E2BD492BFBDF78003EA777 /* CoinGekoWallester.app */;
 			productType = "com.apple.product-type.application";
@@ -188,6 +196,10 @@
 				Base,
 			);
 			mainGroup = 15E2BD402BFBDF78003EA777;
+			packageReferences = (
+				15E2BDB92BFCA7DF003EA777 /* XCRemoteSwiftPackageReference "swift-format" */,
+				15E2BDBE2BFCA801003EA777 /* XCRemoteSwiftPackageReference "SwiftLint" */,
+			);
 			productRefGroup = 15E2BD4A2BFBDF78003EA777 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -428,6 +440,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		15E2BDB92BFCA7DF003EA777 /* XCRemoteSwiftPackageReference "swift-format" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-format";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 510.1.0;
+			};
+		};
+		15E2BDBE2BFCA801003EA777 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/SwiftLint.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.55.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		15E2BDBA2BFCA7DF003EA777 /* SwiftFormat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 15E2BDB92BFCA7DF003EA777 /* XCRemoteSwiftPackageReference "swift-format" */;
+			productName = SwiftFormat;
+		};
+		15E2BDBC2BFCA7DF003EA777 /* SwiftFormatConfiguration */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 15E2BDB92BFCA7DF003EA777 /* XCRemoteSwiftPackageReference "swift-format" */;
+			productName = SwiftFormatConfiguration;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 15E2BD412BFBDF78003EA777 /* Project object */;
 }
