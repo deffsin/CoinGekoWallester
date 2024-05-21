@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1508EC312BFCE5C300BDB011 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1508EC302BFCE5C300BDB011 /* TabBar.swift */; };
 		15E2BD4D2BFBDF78003EA777 /* CoinGekoWallesterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E2BD4C2BFBDF78003EA777 /* CoinGekoWallesterApp.swift */; };
 		15E2BD4F2BFBDF78003EA777 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E2BD4E2BFBDF78003EA777 /* ContentView.swift */; };
 		15E2BD512BFBDF7B003EA777 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15E2BD502BFBDF7B003EA777 /* Assets.xcassets */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1508EC302BFCE5C300BDB011 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		15E2BD492BFBDF78003EA777 /* CoinGekoWallester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoinGekoWallester.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15E2BD4C2BFBDF78003EA777 /* CoinGekoWallesterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinGekoWallesterApp.swift; sourceTree = "<group>"; };
 		15E2BD4E2BFBDF78003EA777 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 		15E2BD5B2BFBDFEF003EA777 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				1508EC302BFCE5C300BDB011 /* TabBar.swift */,
 				15E2BD5C2BFBDFF4003EA777 /* Market */,
 			);
 			path = Screens;
@@ -235,6 +238,7 @@
 				15E2BD992BFBE0F8003EA777 /* CoinDataService.swift in Sources */,
 				15E2BD4D2BFBDF78003EA777 /* CoinGekoWallesterApp.swift in Sources */,
 				15E2BD5E2BFBE006003EA777 /* MarketView.swift in Sources */,
+				1508EC312BFCE5C300BDB011 /* TabBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
