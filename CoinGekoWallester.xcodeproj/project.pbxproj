@@ -27,6 +27,7 @@
 		15E2BD992BFBE0F8003EA777 /* CoinDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E2BD982BFBE0F8003EA777 /* CoinDataService.swift */; };
 		15E2BDBB2BFCA7DF003EA777 /* SwiftFormat in Frameworks */ = {isa = PBXBuildFile; productRef = 15E2BDBA2BFCA7DF003EA777 /* SwiftFormat */; };
 		15E2BDBD2BFCA7DF003EA777 /* SwiftFormatConfiguration in Frameworks */ = {isa = PBXBuildFile; productRef = 15E2BDBC2BFCA7DF003EA777 /* SwiftFormatConfiguration */; };
+		15E3AEF92BFE93FF00B6DFC5 /* CoinList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E3AEF82BFE93FF00B6DFC5 /* CoinList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		15E2BD672BFBE038003EA777 /* AsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
 		15E2BD6A2BFBE061003EA777 /* CoinModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinModel.swift; sourceTree = "<group>"; };
 		15E2BD982BFBE0F8003EA777 /* CoinDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinDataService.swift; sourceTree = "<group>"; };
+		15E3AEF82BFE93FF00B6DFC5 /* CoinList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 			children = (
 				15E2BD5D2BFBE006003EA777 /* MarketView.swift */,
 				15E2BD5F2BFBE00E003EA777 /* MarketViewModel.swift */,
+				15E3AEF82BFE93FF00B6DFC5 /* CoinList.swift */,
 			);
 			path = Market;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 				15E2BD682BFBE038003EA777 /* AsyncImage.swift in Sources */,
 				15E2BD602BFBE00E003EA777 /* MarketViewModel.swift in Sources */,
 				1541D4982BFE24D1007CCFAA /* AppFont.swift in Sources */,
+				15E3AEF92BFE93FF00B6DFC5 /* CoinList.swift in Sources */,
 				15E2BD4F2BFBDF78003EA777 /* ContentView.swift in Sources */,
 				15E2BD622BFBE016003EA777 /* Row.swift in Sources */,
 				15E2BD6B2BFBE061003EA777 /* CoinModel.swift in Sources */,
