@@ -11,9 +11,11 @@ struct MarketView: View {
   @StateObject var viewModel = MarketViewModel()
 
   var body: some View {
-    ZStack {
-      CoinRowView(viewModel: viewModel)
-    }
+      ZStack {
+          ScrollView {
+              
+          }
+      }
   }
 }
 
