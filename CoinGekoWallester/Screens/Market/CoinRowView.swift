@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+
 struct CoinRowView: View {
     @ObservedObject var viewModel: MarketViewModel
     
@@ -24,23 +25,21 @@ struct CoinRowView: View {
                 Swipe(content: {
                     HStack {
                         leftSide(image: coin.image, symbol: coin.symbol, currentPrice: coin.currentPrice, priceChange: coin.priceChangePercentage1H ?? 0.0)
-                        Spacer()
                         rightSide(marketCap: coin.marketCap ?? 0.0)
                     }
                     .padding()
                 }, right1: {
-                    Rectangle()
-                        .fill(Color.red)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    rowButtonView(text: "Share", systemName: "arrow.uturn.right", color: .blue.opacity(0.7), action: { print("Share") })
                 }, right2: {
-                    Rectangle()
-                        .fill(Color.green)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    rowButtonView(text: "Price alert", systemName: "bell", color: .green.opacity(0.7), action: { print("Price alert") })
                 }, right3: {
+                    rowButtonView(text: "Portfolio", systemName: "star", color: .yellow.opacity(0.7), action: { print("Portfolio") })
+                }, chart: {
                     Rectangle()
-                        .fill(Color.blue)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .fill(Color.gray)
+                        .frame(width: 110, height: 60)
                 }, itemHeight: 60)
+
             }
         }
         .onAppear {
@@ -55,37 +54,57 @@ struct CoinRowView: View {
                     .frame(width: 15, height: 15)
                 
                 Text(symbol.uppercased())
-                    .font(.subheadline)
+                    .font(.fontSemiBoldSmall)
                     .foregroundColor(.gray)
-                    .fixedSize(horizontal: true, vertical: false)
+                    .fixedSize()
             }
             .frame(width: 40)
             
             Text(currentPrice.customFormatted)
+                .font(.fontSemiBoldSmall)
+                .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)
             
             priceChangeView(priceChange: priceChange)
         }
     }
-    
+
     func rightSide(marketCap: Double?) -> some View {
-        HStack(spacing: 5) {
-            Text(marketCap?.customFormatted ?? "0")
-                .font(.headline)
-            
-            RoundedRectangle(cornerRadius: 2)
-                .frame(width: 80, height: 40)
-        }
+        Text("$\(marketCap?.customFormatted ?? "0")")
+            .font(.fontSemiBoldSmall)
+            .frame(width: 150, alignment: .trailing)
     }
     
     func priceChangeView(priceChange: Double?) -> some View {
-        let displayChange = String(format: "%.2f%%", priceChange ?? 0)
-        return Text("\(displayChange)")
+        let absoluteChange = abs(priceChange ?? 0)
+        let displayChange = String(format: "%.2f%%", absoluteChange)
+        
+        return Text(displayChange)
             .foregroundColor(getColorForPercentage(priceChange))
-            .font(.subheadline)
+            .font(.fontSemiBoldSmall)
+            .frame(minWidth: 0, maxWidth: 50, alignment: .trailing)
+            .layoutPriority(1)
     }
-    
+
     func getColorForPercentage(_ percentage: Double?) -> Color {
         guard let percentage = percentage else { return .black }
         return percentage >= 0 ? .green : .red
     }
+    
+    func rowButtonView(text: String, systemName: String, color: Color, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            VStack(spacing: 2) {
+                Image(systemName: systemName)
+                
+                Text(text)
+                    .font(.fontRegularUltraSmall)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .foregroundStyle(.white)
+            .background(color)
+        }
+    }
+}
+
+#Preview {
+  CoinRowView(viewModel: MarketViewModel())
 }

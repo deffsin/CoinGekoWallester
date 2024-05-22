@@ -15,6 +15,7 @@ struct MarketView: View {
           ScrollView {
               CoinRowView(viewModel: viewModel)
           }
+          //.padding([.leading, .trailing], 11)
       }
   }
 }

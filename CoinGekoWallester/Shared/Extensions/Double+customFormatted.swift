@@ -13,14 +13,15 @@ extension Double {
         formatter.numberStyle = .decimal
         formatter.groupingSeparator = "," // razdelitel dlja thousands
         formatter.locale = Locale(identifier: "en_US") // poka wto en_US
+        formatter.usesSignificantDigits = true
 
-        if self < 100_000 {
+        if self >= 1 {
             formatter.maximumFractionDigits = 2
-            
             formatter.minimumFractionDigits = 2
-            
+        } else if self >= 0.001 {
+            formatter.maximumFractionDigits = 4 // 0.001 & 1
         } else {
-            formatter.maximumFractionDigits = 0
+            formatter.maximumFractionDigits = 8 // dlja o4en malenkih cifr, naprimer kak PEPE
         }
 
         return formatter.string(from: NSNumber(value: self)) ?? "\(self)"

@@ -10,6 +10,10 @@
 		1508EC312BFCE5C300BDB011 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1508EC302BFCE5C300BDB011 /* TabBar.swift */; };
 		1508EC612BFD0F5100BDB011 /* Double+customFormatted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1508EC602BFD0F5100BDB011 /* Double+customFormatted.swift */; };
 		1508EC632BFD109700BDB011 /* Swipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1508EC622BFD109700BDB011 /* Swipe.swift */; };
+		1541D4932BFE2325007CCFAA /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1541D4922BFE2325007CCFAA /* Font.swift */; };
+		1541D4982BFE24D1007CCFAA /* AppFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1541D4942BFE24D0007CCFAA /* AppFont.swift */; };
+		1541D4992BFE24D1007CCFAA /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1541D4952BFE24D0007CCFAA /* Poppins-Regular.ttf */; };
+		1541D49A2BFE24D1007CCFAA /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1541D4962BFE24D0007CCFAA /* Poppins-SemiBold.ttf */; };
 		15E2BD4D2BFBDF78003EA777 /* CoinGekoWallesterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E2BD4C2BFBDF78003EA777 /* CoinGekoWallesterApp.swift */; };
 		15E2BD4F2BFBDF78003EA777 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E2BD4E2BFBDF78003EA777 /* ContentView.swift */; };
 		15E2BD512BFBDF7B003EA777 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15E2BD502BFBDF7B003EA777 /* Assets.xcassets */; };
@@ -29,6 +33,10 @@
 		1508EC302BFCE5C300BDB011 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		1508EC602BFD0F5100BDB011 /* Double+customFormatted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+customFormatted.swift"; sourceTree = "<group>"; };
 		1508EC622BFD109700BDB011 /* Swipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Swipe.swift; sourceTree = "<group>"; };
+		1541D4922BFE2325007CCFAA /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		1541D4942BFE24D0007CCFAA /* AppFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppFont.swift; sourceTree = "<group>"; };
+		1541D4952BFE24D0007CCFAA /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
+		1541D4962BFE24D0007CCFAA /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		15E2BD492BFBDF78003EA777 /* CoinGekoWallester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoinGekoWallester.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15E2BD4C2BFBDF78003EA777 /* CoinGekoWallesterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinGekoWallesterApp.swift; sourceTree = "<group>"; };
 		15E2BD4E2BFBDF78003EA777 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -60,6 +68,7 @@
 			isa = PBXGroup;
 			children = (
 				1508EC602BFD0F5100BDB011 /* Double+customFormatted.swift */,
+				1541D4922BFE2325007CCFAA /* Font.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -70,6 +79,16 @@
 				1508EC622BFD109700BDB011 /* Swipe.swift */,
 			);
 			path = Others;
+			sourceTree = "<group>";
+		};
+		1541D4972BFE24D0007CCFAA /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				1541D4962BFE24D0007CCFAA /* Poppins-SemiBold.ttf */,
+				1541D4952BFE24D0007CCFAA /* Poppins-Regular.ttf */,
+				1541D4942BFE24D0007CCFAA /* AppFont.swift */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		15E2BD402BFBDF78003EA777 = {
@@ -160,6 +179,7 @@
 		15E2BD692BFBE046003EA777 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				1541D4972BFE24D0007CCFAA /* Fonts */,
 				15E2BD502BFBDF7B003EA777 /* Assets.xcassets */,
 			);
 			path = Assets;
@@ -183,6 +203,7 @@
 				15E2BD452BFBDF78003EA777 /* Sources */,
 				15E2BD462BFBDF78003EA777 /* Frameworks */,
 				15E2BD472BFBDF78003EA777 /* Resources */,
+				1541D4912BFE15E2007CCFAA /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -239,12 +260,34 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1541D4992BFE24D1007CCFAA /* Poppins-Regular.ttf in Resources */,
+				1541D49A2BFE24D1007CCFAA /* Poppins-SemiBold.ttf in Resources */,
 				15E2BD542BFBDF7B003EA777 /* Preview Assets.xcassets in Resources */,
 				15E2BD512BFBDF7B003EA777 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1541D4912BFE15E2007CCFAA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftformat >/dev/null; then\n  swiftformat .\nelse\n  echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		15E2BD452BFBDF78003EA777 /* Sources */ = {
@@ -253,11 +296,13 @@
 			files = (
 				15E2BD682BFBE038003EA777 /* AsyncImage.swift in Sources */,
 				15E2BD602BFBE00E003EA777 /* MarketViewModel.swift in Sources */,
+				1541D4982BFE24D1007CCFAA /* AppFont.swift in Sources */,
 				15E2BD4F2BFBDF78003EA777 /* ContentView.swift in Sources */,
 				15E2BD622BFBE016003EA777 /* CoinRowView.swift in Sources */,
 				15E2BD6B2BFBE061003EA777 /* CoinModel.swift in Sources */,
 				1508EC632BFD109700BDB011 /* Swipe.swift in Sources */,
 				1508EC612BFD0F5100BDB011 /* Double+customFormatted.swift in Sources */,
+				1541D4932BFE2325007CCFAA /* Font.swift in Sources */,
 				15E2BD662BFBE02C003EA777 /* NetworkingManager.swift in Sources */,
 				15E2BD992BFBE0F8003EA777 /* CoinDataService.swift in Sources */,
 				15E2BD4D2BFBDF78003EA777 /* CoinGekoWallesterApp.swift in Sources */,
