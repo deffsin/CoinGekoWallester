@@ -13,9 +13,8 @@ struct MarketView: View {
   var body: some View {
       ZStack {
           ScrollView {
-              CoinRowView(viewModel: viewModel)
+              
           }
-          //.padding([.leading, .trailing], 11)
       }
   }
 }
