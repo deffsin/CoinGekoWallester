@@ -10,7 +10,7 @@ import SwiftUI
 struct CoinList: View {
     @ObservedObject var viewModel: MarketViewModel
     @State private var rowHeights: [String: CGFloat] = [:]
-
+    
     var body: some View {
         ScrollView {
             VStack {
@@ -22,7 +22,7 @@ struct CoinList: View {
             }
         }
     }
-
+    
     @ViewBuilder
     func buildMainContent() -> some View {
         HStack(spacing: 0) {
@@ -53,7 +53,7 @@ struct CoinList: View {
                 VStack(spacing: 0) {
                     rightListHeader()
                     ForEach(viewModel.allCoins, id: \.id) { coin in
-                        rightSide(currentPrice: coin.currentPrice, priceChange1H: coin.priceChangePercentage1H ?? 0.0, id: coin.id)
+                        rightSide(currentPrice: coin.currentPrice, priceChange1H: coin.priceChangePercentage1H ?? 0.0, priceChange24H: coin.priceChangePercentage24H ?? 0.0, priceChange7D: coin.priceChangePercentage7D ?? 0.0, volume24h: coin.volume24h ?? 0.0, marketCap: coin.marketCap ?? 0.0, id: coin.id)
                             .frame(height: rowHeights[coin.id] ?? 0)
                         
                         customDivider()
@@ -64,79 +64,94 @@ struct CoinList: View {
     }
     
     func leftListHeader() -> some View {
-        HStack(spacing: 5) {
-            Image(systemName: "star")
-                .font(.system(size: 14))
-                .opacity(0)
-            
-            Button(action: {
+        VStack(spacing: 0) {
+            HStack(spacing: 5) {
+                Button(action: {
+                    
+                }) {
+                    Image(systemName: "arrowtriangle.up.fill")
+                        .font(.system(size: 7))
+                }
                 
-            }) {
-                Image(systemName: "arrowtriangle.up.fill")
-                    .font(.system(size: 7))
+                Text("#")
+                    .font(.system(size: 9))
+                
+                Text("Coin")
+                    .font(.fontSemiBoldUltraSmall)
+                
+                Spacer()
             }
+            .padding(.leading, 23)
+            .frame(width: 175)
+            .padding(.leading, 10)
             
-            Text("#")
-                .font(.system(size: 9))
-            
-            Text("Coin")
-                .font(.fontSemiBoldUltraSmall)
-            Spacer()
+            customDivider()
         }
-        .frame(width: 175)
-        .padding(.leading, 10)
+        .padding(.vertical, 5) // ostavit???
     }
     
     func rightListHeader() -> some View {
-        HStack {
-            Image(systemName: "star")
-                .font(.system(size: 14))
-                .opacity(0)
+        VStack(spacing: 0) {
+            HStack(spacing: 5) {
+                Button(action: {
+                    
+                }) {
+                    Image(systemName: "arrowtriangle.up.fill")
+                        .font(.system(size: 7))
+                }
+                
+                Text("Price")
+                    .font(.fontSemiBoldUltraSmall)
+                
+                Spacer()
+            }
+            .padding(.leading, 75)
+            .frame(width: 175)
+            .padding(.leading, 10)
             
-            Spacer()
+            customDivider()
         }
-        .frame(width: 175)
-        .padding(.leading, 10)
+        .padding(.vertical, 5) // ostavit???
     }
-
+    
     func leftSide(image: String, name: String, symbol: String) -> some View {
         HStack(spacing: 5) {
             Button(action: { }) {
                 Image(systemName: "star")
                     .font(.system(size: 14))
             }
-
+            
             Text("1")
                 .font(.fontRegularSmall)
-
+            
             HStack {
                 AsyncImage(url: URL(string: image)!)
                     .frame(width: 20, height: 20)
-
+                
                 VStack(alignment: .leading) {
                     Text(name)
                         .font(.fontSemiBoldSmall)
                         .fixedSize(horizontal: false, vertical: true)
                         .multilineTextAlignment(.leading)
-
+                    
                     Text(symbol.uppercased())
                         .font(.fontSemiBoldSmall)
                         .foregroundColor(.gray)
                 }
             }
             .padding(10)
-
+            
             Spacer()
         }
         .frame(width: 175)
         .padding(.leading, 10)
     }
-
-    func rightSide(currentPrice: Double, priceChange1H: Double, id: String) -> some View {
+    
+    func rightSide(currentPrice: Double, priceChange1H: Double, priceChange24H: Double, priceChange7D: Double, volume24h: Double, marketCap: Double, id: String) -> some View {
         ZStack {
             Color.green.opacity(0.4)
-
-            HStack {
+            
+            HStack(spacing: 5) {
                 Button(action: { }) {
                     Text("Buy")
                         .font(.fontSemiBoldUltraSmall)
@@ -151,15 +166,50 @@ struct CoinList: View {
                 
                 VStack {
                     Text("$\(currentPrice.customFormatted)")
-                        .font(.fontSemiBoldSmall)
+                        .font(.fontRegularSmall)
                 }
-                .frame(width: 105, alignment: .trailing)
-
+                .frame(maxWidth: 100, alignment: .trailing)
+                
+                HStack(spacing: 25) {
+                    /// 1h
+                    HStack(spacing: 2) {
+                        getTriangle(priceChange1H)
+                        priceChangeView(priceChange: priceChange1H)
+                    }
+                    .frame(maxWidth: 100, alignment: .trailing)
+                    
+                    /// 24h
+                    HStack(spacing: 2) {
+                        getTriangle(priceChange24H)
+                        priceChangeView(priceChange: priceChange24H)
+                    }
+                    .frame(maxWidth: 100, alignment: .trailing)
+                    
+                    /// 7d
+                    HStack(spacing: 2) {
+                        getTriangle(priceChange7D)
+                        priceChangeView(priceChange: priceChange7D)
+                    }
+                    .frame(maxWidth: 100, alignment: .trailing)
+                }
+                .frame(width: 255, alignment: .trailing)
+                .padding(.leading, 10)
+                
+                HStack {
+                    Text("$\(volume24h.customFormatted)")
+                }
+                .frame(maxWidth: 160, alignment: .trailing)
+                
+                HStack {
+                    Text("$\(marketCap.customFormatted)")
+                }
+                .frame(maxWidth: 180, alignment: .trailing)
+                
                 Spacer()
             }
             .padding(.horizontal, 10)
         }
-        .frame(width: 250)
+        .frame(width: 800)
     }
     
     func customDivider() -> some View {
@@ -169,21 +219,35 @@ struct CoinList: View {
                 .frame(height: 1)
         }
     }
-
+    
     func priceChangeView(priceChange: Double?) -> some View {
         let absoluteChange = abs(priceChange ?? 0)
         let displayChange = String(format: "%.2f%%", absoluteChange)
         
         return Text(displayChange)
             .foregroundColor(getColorForPercentage(priceChange))
-            .font(.fontSemiBoldSmall)
-            .frame(minWidth: 0, maxWidth: 50, alignment: .trailing)
-            .layoutPriority(1)
+            .font(.fontRegularSmall)
     }
-
+    
     func getColorForPercentage(_ percentage: Double?) -> Color {
         guard let percentage = percentage else { return .black }
         return percentage >= 0 ? .green : .red
+    }
+    
+    func getTriangle(_ percentage: Double?) -> some View {
+        Group {
+            if let percentage = percentage {
+                if percentage >= 0 {
+                    Image(systemName: "arrowtriangle.up.fill")
+                } else {
+                    Image(systemName: "arrowtriangle.down.fill")
+                }
+            } else {
+                EmptyView()
+            }
+        }
+        .foregroundColor(getColorForPercentage(percentage))
+        .font(.system(size: 9))
     }
 }
 
