@@ -9,61 +9,181 @@ import SwiftUI
 
 struct CoinList: View {
     @ObservedObject var viewModel: MarketViewModel
-    
+    @State private var rowHeights: [String: CGFloat] = [:]
+
     var body: some View {
+        ScrollView {
+            VStack {
+                buildMainContent()
+            }
+            .padding(.horizontal, 10)
+            .onAppear {
+                viewModel.fetchCrypto(forceUpdate: true)
+            }
+        }
+    }
+
+    @ViewBuilder
+    func buildMainContent() -> some View {
         HStack(spacing: 0) {
-            HStack {
-                Button(action: { }) {
-                    Image(systemName: "star")
-                }
-                
-                Text("1")
-                
-                HStack {
-                    Image(systemName: "car")
-                    
-                    VStack{
-                        Text("Bitcoin")
+            VStack(spacing: 0) {
+                leftListHeader()
+                ForEach(viewModel.allCoins, id: \.id) { coin in
+                    VStack(spacing: 0) {
+                        HStack(spacing: 0) {
+                            leftSide(image: coin.image, name: coin.name, symbol: coin.symbol)
+                                .background(GeometryReader { geo in
+                                    Color.clear
+                                        .onAppear {
+                                            rowHeights[coin.id] = geo.size.height
+                                        }
+                                        .onChange(of: geo.size.height) { newHeight in
+                                            rowHeights[coin.id] = newHeight
+                                        }
+                                })
+                        }
+                        .frame(maxHeight: 95)
                         
-                        Text("BTC")
+                        customDivider()
                     }
                 }
-                .padding(10)
-                
-                Spacer()
             }
-            .frame(width: 160)
-            .padding(.horizontal, 10)
-            .background(.gray.opacity(0.4))
             
             ScrollView(.horizontal) {
-                HStack {
-                    Button(action: { }) {
-                        Image(systemName: "star")
-                    }
-                    
-                    Text("1")
-                    
-                    HStack {
-                        Image(systemName: "car")
+                VStack(spacing: 0) {
+                    rightListHeader()
+                    ForEach(viewModel.allCoins, id: \.id) { coin in
+                        rightSide(currentPrice: coin.currentPrice, priceChange1H: coin.priceChangePercentage1H ?? 0.0, id: coin.id)
+                            .frame(height: rowHeights[coin.id] ?? 0)
                         
-                        VStack{
-                            Text("Bitcoin")
-                            
-                            Text("BTC")
-                        }
+                        customDivider()
                     }
-                    .padding(10)
-                    
-                    Spacer()
                 }
-                .frame(width: 250)
-                .padding(.horizontal, 10)
-                .background(.green.opacity(0.4))
             }
-            .scrollIndicators(.never)
         }
-        .padding(.horizontal, 5)
+    }
+    
+    func leftListHeader() -> some View {
+        HStack(spacing: 5) {
+            Image(systemName: "star")
+                .font(.system(size: 14))
+                .opacity(0)
+            
+            Button(action: {
+                
+            }) {
+                Image(systemName: "arrowtriangle.up.fill")
+                    .font(.system(size: 7))
+            }
+            
+            Text("#")
+                .font(.system(size: 9))
+            
+            Text("Coin")
+                .font(.fontSemiBoldUltraSmall)
+            Spacer()
+        }
+        .frame(width: 175)
+        .padding(.leading, 10)
+    }
+    
+    func rightListHeader() -> some View {
+        HStack {
+            Image(systemName: "star")
+                .font(.system(size: 14))
+                .opacity(0)
+            
+            Spacer()
+        }
+        .frame(width: 175)
+        .padding(.leading, 10)
+    }
+
+    func leftSide(image: String, name: String, symbol: String) -> some View {
+        HStack(spacing: 5) {
+            Button(action: { }) {
+                Image(systemName: "star")
+                    .font(.system(size: 14))
+            }
+
+            Text("1")
+                .font(.fontRegularSmall)
+
+            HStack {
+                AsyncImage(url: URL(string: image)!)
+                    .frame(width: 20, height: 20)
+
+                VStack(alignment: .leading) {
+                    Text(name)
+                        .font(.fontSemiBoldSmall)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .multilineTextAlignment(.leading)
+
+                    Text(symbol.uppercased())
+                        .font(.fontSemiBoldSmall)
+                        .foregroundColor(.gray)
+                }
+            }
+            .padding(10)
+
+            Spacer()
+        }
+        .frame(width: 175)
+        .padding(.leading, 10)
+    }
+
+    func rightSide(currentPrice: Double, priceChange1H: Double, id: String) -> some View {
+        ZStack {
+            Color.green.opacity(0.4)
+
+            HStack {
+                Button(action: { }) {
+                    Text("Buy")
+                        .font(.fontSemiBoldUltraSmall)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 2)
+                        .cornerRadius(5)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 5)
+                                .stroke(Color.green, lineWidth: 2)
+                        )
+                }
+                
+                VStack {
+                    Text("$\(currentPrice.customFormatted)")
+                        .font(.fontSemiBoldSmall)
+                }
+                .frame(width: 105, alignment: .trailing)
+
+                Spacer()
+            }
+            .padding(.horizontal, 10)
+        }
+        .frame(width: 250)
+    }
+    
+    func customDivider() -> some View {
+        ZStack {
+            Divider()
+                .frame(maxWidth: .infinity)
+                .frame(height: 1)
+        }
+    }
+
+    func priceChangeView(priceChange: Double?) -> some View {
+        let absoluteChange = abs(priceChange ?? 0)
+        let displayChange = String(format: "%.2f%%", absoluteChange)
+        
+        return Text(displayChange)
+            .foregroundColor(getColorForPercentage(priceChange))
+            .font(.fontSemiBoldSmall)
+            .frame(minWidth: 0, maxWidth: 50, alignment: .trailing)
+            .layoutPriority(1)
+    }
+
+    func getColorForPercentage(_ percentage: Double?) -> Color {
+        guard let percentage = percentage else { return .black }
+        return percentage >= 0 ? .green : .red
     }
 }
 
