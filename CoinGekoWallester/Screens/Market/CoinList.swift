@@ -63,7 +63,7 @@ struct CoinList: View {
         }
     }
     
-    func leftListHeader() -> some View {
+    private func leftListHeader() -> some View {
         VStack(spacing: 0) {
             HStack(spacing: 5) {
                 Button(action: {
@@ -90,7 +90,7 @@ struct CoinList: View {
         .padding(.vertical, 5) // ostavit???
     }
     
-    func rightListHeader() -> some View {
+    private func rightListHeader() -> some View {
         VStack(spacing: 0) {
             HStack(spacing: 5) {
                 Button(action: {
@@ -114,7 +114,7 @@ struct CoinList: View {
         .padding(.vertical, 5) // ostavit???
     }
     
-    func leftSide(image: String, name: String, symbol: String) -> some View {
+    private func leftSide(image: String, name: String, symbol: String) -> some View {
         HStack(spacing: 5) {
             Button(action: { }) {
                 Image(systemName: "star")
@@ -147,7 +147,7 @@ struct CoinList: View {
         .padding(.leading, 10)
     }
     
-    func rightSide(currentPrice: Double, priceChange1H: Double, priceChange24H: Double, priceChange7D: Double, volume24h: Double, marketCap: Double, id: String) -> some View {
+    private func rightSide(currentPrice: Double, priceChange1H: Double, priceChange24H: Double, priceChange7D: Double, volume24h: Double, marketCap: Double, id: String) -> some View {
         ZStack {
             Color.green.opacity(0.4)
             
@@ -210,44 +210,6 @@ struct CoinList: View {
             .padding(.horizontal, 10)
         }
         .frame(width: 800)
-    }
-    
-    func customDivider() -> some View {
-        ZStack {
-            Divider()
-                .frame(maxWidth: .infinity)
-                .frame(height: 1)
-        }
-    }
-    
-    func priceChangeView(priceChange: Double?) -> some View {
-        let absoluteChange = abs(priceChange ?? 0)
-        let displayChange = String(format: "%.2f%%", absoluteChange)
-        
-        return Text(displayChange)
-            .foregroundColor(getColorForPercentage(priceChange))
-            .font(.fontRegularSmall)
-    }
-    
-    func getColorForPercentage(_ percentage: Double?) -> Color {
-        guard let percentage = percentage else { return .black }
-        return percentage >= 0 ? .green : .red
-    }
-    
-    func getTriangle(_ percentage: Double?) -> some View {
-        Group {
-            if let percentage = percentage {
-                if percentage >= 0 {
-                    Image(systemName: "arrowtriangle.up.fill")
-                } else {
-                    Image(systemName: "arrowtriangle.down.fill")
-                }
-            } else {
-                EmptyView()
-            }
-        }
-        .foregroundColor(getColorForPercentage(percentage))
-        .font(.system(size: 9))
     }
 }
 
