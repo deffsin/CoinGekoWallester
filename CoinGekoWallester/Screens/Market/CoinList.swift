@@ -31,7 +31,7 @@ struct CoinList: View {
                 ForEach(viewModel.allCoins, id: \.id) { coin in
                     VStack(spacing: 0) {
                         HStack(spacing: 0) {
-                            leftSide(image: coin.image, name: coin.name, symbol: coin.symbol)
+                            leftSide(rank: coin.rank, image: coin.image, name: coin.name, symbol: coin.symbol)
                                 .background(GeometryReader { geo in
                                     Color.clear
                                         .onAppear {
@@ -65,7 +65,7 @@ struct CoinList: View {
     
     private func leftListHeader() -> some View {
         VStack(spacing: 0) {
-            HStack(spacing: 5) {
+            HStack(spacing: 8) {
                 Button(action: {
                     
                 }) {
@@ -81,7 +81,7 @@ struct CoinList: View {
                 
                 Spacer()
             }
-            .padding(.leading, 23)
+            .padding(.leading, 19)
             .frame(width: 175)
             .padding(.leading, 1)
             
@@ -200,15 +200,18 @@ struct CoinList: View {
         }
     }
     
-    private func leftSide(image: String, name: String, symbol: String) -> some View {
-        HStack(spacing: 5) {
-            Button(action: { }) {
-                Image(systemName: "star")
-                    .font(.system(size: 14))
+    private func leftSide(rank: Int, image: String, name: String, symbol: String) -> some View {
+        HStack(spacing: 1) {
+            HStack(spacing: 5) {
+                Button(action: { }) {
+                    Image(systemName: "star")
+                        .font(.system(size: 14))
+                }
+                
+                Text("\(rank)")
+                    .font(.fontRegularSmall)
+                    .frame(maxWidth: 20, alignment: .leading)
             }
-            
-            Text("1")
-                .font(.fontRegularSmall)
             
             HStack {
                 AsyncImage(url: URL(string: image)!)
@@ -230,7 +233,7 @@ struct CoinList: View {
             
             Spacer()
         }
-        .frame(width: 175)
+        .frame(width: 185)
     }
     
     private func rightSide(currentPrice: Double, priceChange1H: Double, priceChange24H: Double, priceChange7D: Double, volume24h: Double, marketCap: Double, id: String) -> some View {
