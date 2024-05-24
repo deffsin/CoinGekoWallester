@@ -28,7 +28,7 @@ struct CoinList: View {
         HStack(spacing: 0) {
             VStack(spacing: 0) {
                 leftListHeader()
-                ForEach(viewModel.allCoins, id: \.id) { coin in
+                ForEach(viewModel.sortedCoins, id: \.id) { coin in
                     VStack(spacing: 0) {
                         HStack(spacing: 0) {
                             leftSide(rank: coin.rank, image: coin.image, name: coin.name, symbol: coin.symbol)
@@ -52,7 +52,7 @@ struct CoinList: View {
             ScrollView(.horizontal) {
                 VStack(spacing: 0) {
                     rightListHeader()
-                    ForEach(viewModel.allCoins, id: \.id) { coin in
+                    ForEach(viewModel.sortedCoins, id: \.id) { coin in
                         rightSide(currentPrice: coin.currentPrice, priceChange1H: coin.priceChangePercentage1H ?? 0.0, priceChange24H: coin.priceChangePercentage24H ?? 0.0, priceChange7D: coin.priceChangePercentage7D ?? 0.0, volume24h: coin.volume24h ?? 0.0, marketCap: coin.marketCap ?? 0.0, id: coin.id)
                             .frame(height: rowHeights[coin.id] ?? 0)
                         
@@ -66,12 +66,12 @@ struct CoinList: View {
     private func leftListHeader() -> some View {
         VStack(spacing: 0) {
             HStack(spacing: 8) {
-                Button(action: {
-                    
-                }) {
-                    Image(systemName: "arrowtriangle.up.fill")
-                        .font(.system(size: 7))
-                }
+                Image(systemName: "arrowtriangle.up.fill")
+                    .font(.system(size: 7))
+                    .rotationEffect(Angle(degrees: viewModel.sortOption == .rank ? 0 : 180))
+                    .onTapGesture {
+                        viewModel.sortOption = viewModel.sortOption == .rank ? .rankReversed : .rank
+                    }
                 
                 Text("#")
                     .font(.system(size: 9))
@@ -95,26 +95,27 @@ struct CoinList: View {
                 
                 /// Price
                 HStack(spacing: 5) {
-                    Button(action: {
-                        
-                    }) {
-                        Image(systemName: "arrowtriangle.up.fill")
-                            .font(.system(size: 7))
-                    }
+                    Image(systemName: "arrowtriangle.up.fill")
+                        .font(.system(size: 7))
+                        .rotationEffect(Angle(degrees: viewModel.sortOption == .price ? 0 : 180))
+                        .onTapGesture {
+                            viewModel.sortOption = viewModel.sortOption == .price ? .priceReversed : .price
+                        }
                     
                     Text("Price")
                         .font(.fontSemiBoldUltraSmall)
                 }
-                .frame(maxWidth: 145, alignment: .trailing)
+                .frame(maxWidth: 150, alignment: .trailing)
                 
                 /// 1h
                 HStack(spacing: 5) {
-                    Button(action: {
-                        
-                    }) {
-                        Image(systemName: "arrowtriangle.up.fill")
-                            .font(.system(size: 7))
-                    }
+                    Image(systemName: "arrowtriangle.up.fill")
+                        .font(.system(size: 7))
+                        .rotationEffect(Angle(degrees: viewModel.sortOption == .pricePercentage1h ? 0 : 180))
+                        .onTapGesture {
+                            viewModel.sortOption = viewModel.sortOption == .pricePercentage1h ? .pricePercentage1hReversed : .pricePercentage1h
+                        }
+                    
                     
                     Text("1h")
                         .font(.fontSemiBoldUltraSmall)
@@ -123,12 +124,12 @@ struct CoinList: View {
                 
                 /// 24h
                 HStack(spacing: 5) {
-                    Button(action: {
-                        
-                    }) {
-                        Image(systemName: "arrowtriangle.up.fill")
-                            .font(.system(size: 7))
-                    }
+                    Image(systemName: "arrowtriangle.up.fill")
+                        .font(.system(size: 7))
+                        .rotationEffect(Angle(degrees: viewModel.sortOption == .pricePercentage24h ? 0 : 180))
+                        .onTapGesture {
+                            viewModel.sortOption = viewModel.sortOption == .pricePercentage24h ? .pricePercentage24hReversed : .pricePercentage24h
+                        }
                     
                     Text("24h")
                         .font(.fontSemiBoldUltraSmall)
@@ -137,12 +138,12 @@ struct CoinList: View {
                 
                 /// 7d
                 HStack(spacing: 5) {
-                    Button(action: {
-                        
-                    }) {
-                        Image(systemName: "arrowtriangle.up.fill")
-                            .font(.system(size: 7))
-                    }
+                    Image(systemName: "arrowtriangle.up.fill")
+                        .font(.system(size: 7))
+                        .rotationEffect(Angle(degrees: viewModel.sortOption == .pricePercentage7d ? 0 : 180))
+                        .onTapGesture {
+                            viewModel.sortOption = viewModel.sortOption == .pricePercentage7d ? .pricePercentage7dReversed : .pricePercentage7d
+                        }
                     
                     Text("7d")
                         .font(.fontSemiBoldUltraSmall)
@@ -151,12 +152,12 @@ struct CoinList: View {
                 
                 /// 24h Volume
                 HStack(spacing: 5) {
-                    Button(action: {
-                        
-                    }) {
-                        Image(systemName: "arrowtriangle.up.fill")
-                            .font(.system(size: 7))
-                    }
+                    Image(systemName: "arrowtriangle.up.fill")
+                        .font(.system(size: 7))
+                        .rotationEffect(Angle(degrees: viewModel.sortOption == .volume24h ? 0 : 180))
+                        .onTapGesture {
+                            viewModel.sortOption = viewModel.sortOption == .volume24h ? .volume24hReversed : .volume24h
+                        }
                     
                     Text("24h Volume")
                         .font(.fontSemiBoldUltraSmall)
@@ -165,12 +166,12 @@ struct CoinList: View {
 
                 /// Market Cap
                 HStack(spacing: 5) {
-                    Button(action: {
-                        
-                    }) {
-                        Image(systemName: "arrowtriangle.up.fill")
-                            .font(.system(size: 7))
-                    }
+                    Image(systemName: "arrowtriangle.up.fill")
+                        .font(.system(size: 7))
+                        .rotationEffect(Angle(degrees: viewModel.sortOption == .marketCap ? 0 : 180))
+                        .onTapGesture {
+                            viewModel.sortOption = viewModel.sortOption == .marketCap ? .marketCapReversed : .marketCap
+                        }
                     
                     Text("Market Cap")
                         .font(.fontSemiBoldUltraSmall)
@@ -254,7 +255,7 @@ struct CoinList: View {
                 Text("$\(currentPrice.customFormatted)")
                     .font(.fontRegularSmall)
             }
-            .frame(maxWidth: 100, alignment: .trailing)
+            .frame(maxWidth: 105, alignment: .trailing)
             
             HStack(spacing: 25) {
                 /// 1h
