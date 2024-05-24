@@ -83,35 +83,121 @@ struct CoinList: View {
             }
             .padding(.leading, 23)
             .frame(width: 175)
-            .padding(.leading, 10)
+            .padding(.leading, 1)
             
             customDivider()
         }
-        .padding(.vertical, 5) // ostavit???
     }
     
     private func rightListHeader() -> some View {
         VStack(spacing: 0) {
             HStack(spacing: 5) {
-                Button(action: {
-                    
-                }) {
-                    Image(systemName: "arrowtriangle.up.fill")
-                        .font(.system(size: 7))
-                }
                 
-                Text("Price")
-                    .font(.fontSemiBoldUltraSmall)
+                /// Price
+                HStack(spacing: 5) {
+                    Button(action: {
+                        
+                    }) {
+                        Image(systemName: "arrowtriangle.up.fill")
+                            .font(.system(size: 7))
+                    }
+                    
+                    Text("Price")
+                        .font(.fontSemiBoldUltraSmall)
+                }
+                .frame(maxWidth: 145, alignment: .trailing)
+                
+                /// 1h
+                HStack(spacing: 5) {
+                    Button(action: {
+                        
+                    }) {
+                        Image(systemName: "arrowtriangle.up.fill")
+                            .font(.system(size: 7))
+                    }
+                    
+                    Text("1h")
+                        .font(.fontSemiBoldUltraSmall)
+                }
+                .frame(maxWidth: 75, alignment: .trailing)
+                
+                /// 24h
+                HStack(spacing: 5) {
+                    Button(action: {
+                        
+                    }) {
+                        Image(systemName: "arrowtriangle.up.fill")
+                            .font(.system(size: 7))
+                    }
+                    
+                    Text("24h")
+                        .font(.fontSemiBoldUltraSmall)
+                }
+                .frame(maxWidth: 90, alignment: .trailing)
+                
+                /// 7d
+                HStack(spacing: 5) {
+                    Button(action: {
+                        
+                    }) {
+                        Image(systemName: "arrowtriangle.up.fill")
+                            .font(.system(size: 7))
+                    }
+                    
+                    Text("7d")
+                        .font(.fontSemiBoldUltraSmall)
+                }
+                .frame(maxWidth: 88, alignment: .trailing)
+                
+                /// 24h Volume
+                HStack(spacing: 5) {
+                    Button(action: {
+                        
+                    }) {
+                        Image(systemName: "arrowtriangle.up.fill")
+                            .font(.system(size: 7))
+                    }
+                    
+                    Text("24h Volume")
+                        .font(.fontSemiBoldUltraSmall)
+                }
+                .frame(maxWidth: 160, alignment: .trailing)
+
+                /// Market Cap
+                HStack(spacing: 5) {
+                    Button(action: {
+                        
+                    }) {
+                        Image(systemName: "arrowtriangle.up.fill")
+                            .font(.system(size: 7))
+                    }
+                    
+                    Text("Market Cap")
+                        .font(.fontSemiBoldUltraSmall)
+                }
+                .frame(maxWidth: 167, alignment: .trailing)
+                
+                /// Chart 7d
+                HStack(spacing: 5) {
+                    Button(action: {
+                        
+                    }) {
+                        Image(systemName: "arrowtriangle.up.fill")
+                            .font(.system(size: 7))
+                    }
+                    
+                    Text("Last 7 Days")
+                        .font(.fontSemiBoldUltraSmall)
+                }
+                .frame(maxWidth: 163, alignment: .trailing)
                 
                 Spacer()
             }
-            .padding(.leading, 75)
-            .frame(width: 175)
             .padding(.leading, 10)
+            .frame(width: 940)
             
             customDivider()
         }
-        .padding(.vertical, 5) // ostavit???
     }
     
     private func leftSide(image: String, name: String, symbol: String) -> some View {
@@ -139,77 +225,82 @@ struct CoinList: View {
                         .foregroundColor(.gray)
                 }
             }
-            .padding(10)
+            .padding(.vertical, 20)
+            .padding(.leading, 10)
             
             Spacer()
         }
         .frame(width: 175)
-        .padding(.leading, 10)
     }
     
     private func rightSide(currentPrice: Double, priceChange1H: Double, priceChange24H: Double, priceChange7D: Double, volume24h: Double, marketCap: Double, id: String) -> some View {
-        ZStack {
-            Color.green.opacity(0.4)
+        HStack(spacing: 5) {
+            Button(action: { }) {
+                Text("Buy")
+                    .font(.fontSemiBoldUltraSmall)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 2)
+                    .cornerRadius(5)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 5)
+                            .stroke(Color.green, lineWidth: 2)
+                    )
+            }
             
-            HStack(spacing: 5) {
-                Button(action: { }) {
-                    Text("Buy")
-                        .font(.fontSemiBoldUltraSmall)
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 2)
-                        .cornerRadius(5)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 5)
-                                .stroke(Color.green, lineWidth: 2)
-                        )
-                }
-                
-                VStack {
-                    Text("$\(currentPrice.customFormatted)")
-                        .font(.fontRegularSmall)
+            VStack {
+                Text("$\(currentPrice.customFormatted)")
+                    .font(.fontRegularSmall)
+            }
+            .frame(maxWidth: 100, alignment: .trailing)
+            
+            HStack(spacing: 25) {
+                /// 1h
+                HStack(spacing: 2) {
+                    getTriangle(priceChange1H)
+                    priceChangeView(priceChange: priceChange1H)
                 }
                 .frame(maxWidth: 100, alignment: .trailing)
                 
-                HStack(spacing: 25) {
-                    /// 1h
-                    HStack(spacing: 2) {
-                        getTriangle(priceChange1H)
-                        priceChangeView(priceChange: priceChange1H)
-                    }
-                    .frame(maxWidth: 100, alignment: .trailing)
-                    
-                    /// 24h
-                    HStack(spacing: 2) {
-                        getTriangle(priceChange24H)
-                        priceChangeView(priceChange: priceChange24H)
-                    }
-                    .frame(maxWidth: 100, alignment: .trailing)
-                    
-                    /// 7d
-                    HStack(spacing: 2) {
-                        getTriangle(priceChange7D)
-                        priceChangeView(priceChange: priceChange7D)
-                    }
-                    .frame(maxWidth: 100, alignment: .trailing)
+                /// 24h
+                HStack(spacing: 2) {
+                    getTriangle(priceChange24H)
+                    priceChangeView(priceChange: priceChange24H)
                 }
-                .frame(width: 255, alignment: .trailing)
-                .padding(.leading, 10)
+                .frame(maxWidth: 100, alignment: .trailing)
                 
-                HStack {
-                    Text("$\(volume24h.customFormatted)")
+                /// 7d
+                HStack(spacing: 2) {
+                    getTriangle(priceChange7D)
+                    priceChangeView(priceChange: priceChange7D)
                 }
-                .frame(maxWidth: 160, alignment: .trailing)
-                
-                HStack {
-                    Text("$\(marketCap.customFormatted)")
-                }
-                .frame(maxWidth: 180, alignment: .trailing)
-                
-                Spacer()
+                .frame(maxWidth: 100, alignment: .trailing)
             }
-            .padding(.horizontal, 10)
+            .frame(width: 255, alignment: .trailing)
+            .padding(.leading, 10)
+            
+            HStack {
+                Text("$\(volume24h.customFormatted)")
+            }
+            .frame(maxWidth: 160, alignment: .trailing)
+            
+            HStack {
+                Text("$\(marketCap.customFormatted)")
+            }
+            .frame(maxWidth: 180, alignment: .trailing)
+            
+            chartView()
+                .padding(.leading, 25)
         }
-        .frame(width: 800)
+        .padding(.horizontal, 10)
+        .padding(.vertical, 3)
+        .frame(width: 940)
+    }
+    
+    private func chartView() -> some View {
+        RoundedRectangle(cornerRadius: 10)
+            .frame(width: 140)
+            .frame(maxHeight: .infinity)
+            .padding(.vertical, 3)
     }
 }
 
