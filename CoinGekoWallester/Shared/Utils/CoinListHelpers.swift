@@ -21,7 +21,7 @@ func priceChangeView(priceChange: Double?) -> some View {
     
     return Text(displayChange)
         .foregroundColor(getColorForPercentage(priceChange))
-        .font(.fontRegularSmall)
+        .font(.fontRegularUltraSmall)
 }
 
 func getColorForPercentage(_ percentage: Double?) -> Color {
@@ -42,5 +42,5 @@ func getTriangle(_ percentage: Double?) -> some View {
         }
     }
     .foregroundColor(getColorForPercentage(percentage))
-    .font(.system(size: 9))
+    .font(.system(size: 7))
 }

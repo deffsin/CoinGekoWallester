@@ -15,10 +15,15 @@ class MarketViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var errorMessage: String? = nil
     @Published var sortOption: SortOption = .rank
+    @Published var currencySymbol: String? = ""
 
     private var cancellables = Set<AnyCancellable>()
-
+    
+    private var locationManager = LocationManager()
+    private var currencyService = CurrencyService.shared
+    
     init() {
+        setupLocationManager()
         subscribers()
     }
     
@@ -36,9 +41,9 @@ class MarketViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    func fetchCrypto(forceUpdate: Bool = false) {
+    func fetchCrypto(currency: String, forceUpdate: Bool = false) {
         isLoading = true
-        CoinDataService.shared.fetchCryptoCurrencies(forceUpdate: forceUpdate)
+        CoinDataService.shared.fetchCryptoCurrencies(currency: currency, forceUpdate: forceUpdate)
             .receive(on: DispatchQueue.main)
             .sink { completion in
                 self.isLoading = false
@@ -52,5 +57,26 @@ class MarketViewModel: ObservableObject {
                 self.allCoins = coins
             }
             .store(in: &cancellables)
+    }
+    
+    func setupLocationManager() {
+        locationManager.currency = { [weak self] currencyCode in
+            self?.fetchCrypto(currency: currencyCode, forceUpdate: true)
+            if let symbol = self?.currencyService.getCurrencySymbol(for: currencyCode) {
+                self?.currencySymbol = symbol
+            } else {
+                self?.currencySymbol = "$"
+            }
+        }
+        locationManager.requestLocationAccess()
+        locationManager.startUpdatingLocation()
+        
+        // esli net dannqh o location, vse ravno vqzavaem
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { [weak self] in
+            if self?.currencySymbol == "" {
+                self?.fetchCrypto(currency: "usd", forceUpdate: true)
+                self?.currencySymbol = "$"
+            }
+        }
     }
 }

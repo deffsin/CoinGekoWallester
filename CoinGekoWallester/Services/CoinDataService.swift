@@ -9,20 +9,19 @@ import Combine
 import Foundation
 
 class CoinDataService {
-  static let shared = CoinDataService()
-
-  private let baseURL =
-    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=30&page=1&sparkline=false&price_change_percentage=1h,24h,7d"
-
-  private init() {}
-
-  func fetchCryptoCurrencies(forceUpdate: Bool = false) -> AnyPublisher<[CoinModel], Error> {
-    guard let url = URL(string: baseURL) else {
-      return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
+    static let shared = CoinDataService()
+    
+    private init() { }
+    
+    func fetchCryptoCurrencies(currency: String, forceUpdate: Bool = false) -> AnyPublisher<[CoinModel], Error> {
+        let urlWithCurrency = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=\(currency)&order=market_cap_desc&per_page=30&page=1&sparkline=false&price_change_percentage=1h,24h,7d"
+        
+        guard let url = URL(string: urlWithCurrency) else {
+            return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
+        }
+        
+        return NetworkingManager.download(url: url, forceUpdate: forceUpdate)
+            .decode(type: [CoinModel].self, decoder: JSONDecoder())
+            .eraseToAnyPublisher()
     }
-
-    return NetworkingManager.download(url: url, forceUpdate: forceUpdate)
-      .decode(type: [CoinModel].self, decoder: JSONDecoder())
-      .eraseToAnyPublisher()
-  }
 }

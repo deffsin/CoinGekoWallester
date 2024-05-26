@@ -17,9 +17,6 @@ struct CoinList: View {
                 buildMainContent()
             }
             .padding(.horizontal, 10)
-            .onAppear {
-                viewModel.fetchCrypto(forceUpdate: true)
-            }
         }
     }
     
@@ -252,8 +249,8 @@ struct CoinList: View {
             }
             
             VStack {
-                Text("$\(currentPrice.customFormatted)")
-                    .font(.fontRegularSmall)
+                Text("\( viewModel.currencySymbol!) \(currentPrice.customFormatted)")
+                    .font(.fontRegularUltraSmall)
             }
             .frame(maxWidth: 105, alignment: .trailing)
             
@@ -283,12 +280,14 @@ struct CoinList: View {
             .padding(.leading, 10)
             
             HStack {
-                Text("$\(volume24h.customFormatted)")
+                Text("\(viewModel.currencySymbol!) \(volume24h.customFormatted)")
+                    .font(.fontRegularUltraSmall)
             }
             .frame(maxWidth: 160, alignment: .trailing)
             
             HStack {
-                Text("$\(marketCap.customFormatted)")
+                Text("\(viewModel.currencySymbol!) \(marketCap.customFormatted)")
+                    .font(.fontRegularUltraSmall)
             }
             .frame(maxWidth: 180, alignment: .trailing)
             
