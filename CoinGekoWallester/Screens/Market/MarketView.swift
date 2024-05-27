@@ -13,7 +13,7 @@ struct MarketView: View {
   var body: some View {
       ZStack {
           ScrollView {
-              
+              CoinList(viewModel: viewModel)
           }
       }
   }
