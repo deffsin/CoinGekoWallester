@@ -50,7 +50,7 @@ struct CoinList: View {
                 VStack(spacing: 0) {
                     rightListHeader()
                     ForEach(viewModel.sortedCoins, id: \.id) { coin in
-                        rightSide(currentPrice: coin.currentPrice, priceChange1H: coin.priceChangePercentage1H ?? 0.0, priceChange24H: coin.priceChangePercentage24H ?? 0.0, priceChange7D: coin.priceChangePercentage7D ?? 0.0, volume24h: coin.volume24h ?? 0.0, marketCap: coin.marketCap ?? 0.0, id: coin.id)
+                        rightSide(currentPrice: coin.currentPrice, priceChange1H: coin.priceChangePercentage1H ?? 0.0, priceChange24H: coin.priceChangePercentage24H ?? 0.0, priceChange7D: coin.priceChangePercentage7D ?? 0.0, volume24h: coin.volume24h ?? 0.0, marketCap: coin.marketCap ?? 0.0, id: coin.id, sparkline: coin.sparklineIn7D)
                             .frame(height: rowHeights[coin.id] ?? 0)
                         
                         customDivider()
@@ -234,7 +234,7 @@ struct CoinList: View {
         .frame(width: 185)
     }
     
-    private func rightSide(currentPrice: Double, priceChange1H: Double, priceChange24H: Double, priceChange7D: Double, volume24h: Double, marketCap: Double, id: String) -> some View {
+    private func rightSide(currentPrice: Double, priceChange1H: Double, priceChange24H: Double, priceChange7D: Double, volume24h: Double, marketCap: Double, id: String, sparkline: SparklineIn7D?) -> some View {
         HStack(spacing: 5) {
             Button(action: { }) {
                 Text("Buy")
@@ -291,19 +291,15 @@ struct CoinList: View {
             }
             .frame(maxWidth: 180, alignment: .trailing)
             
-            chartView()
-                .padding(.leading, 25)
+            if let sparklineData = sparkline?.price {
+                let color: Color = priceChange7D > 0 ? .green : .red
+                ChartView(sparklineIn7D: sparklineData, lineColor: color)
+                    .padding(.leading, 25)
+            }
         }
         .padding(.horizontal, 10)
         .padding(.vertical, 3)
         .frame(width: 940)
-    }
-    
-    private func chartView() -> some View {
-        RoundedRectangle(cornerRadius: 10)
-            .frame(width: 140)
-            .frame(maxHeight: .infinity)
-            .padding(.vertical, 3)
     }
 }
 

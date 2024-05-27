@@ -17,6 +17,8 @@
 		1541D49A2BFE24D1007CCFAA /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1541D4962BFE24D0007CCFAA /* Poppins-SemiBold.ttf */; };
 		1543CC8C2C012E4E0040EB79 /* SortOption+enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1543CC8B2C012E4E0040EB79 /* SortOption+enum.swift */; };
 		1543CC8E2C012ED10040EB79 /* SortCoins.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1543CC8D2C012ED10040EB79 /* SortCoins.swift */; };
+		1586878E2C03AE0600506D69 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1586878D2C03AE0600506D69 /* ChartView.swift */; };
+		158687AA2C03DC4E00506D69 /* ChartHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158687A92C03DC4E00506D69 /* ChartHelpers.swift */; };
 		15E2BD4D2BFBDF78003EA777 /* CoinGekoWallesterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E2BD4C2BFBDF78003EA777 /* CoinGekoWallesterApp.swift */; };
 		15E2BD4F2BFBDF78003EA777 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E2BD4E2BFBDF78003EA777 /* ContentView.swift */; };
 		15E2BD512BFBDF7B003EA777 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15E2BD502BFBDF7B003EA777 /* Assets.xcassets */; };
@@ -46,6 +48,8 @@
 		1541D4962BFE24D0007CCFAA /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		1543CC8B2C012E4E0040EB79 /* SortOption+enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SortOption+enum.swift"; sourceTree = "<group>"; };
 		1543CC8D2C012ED10040EB79 /* SortCoins.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortCoins.swift; sourceTree = "<group>"; };
+		1586878D2C03AE0600506D69 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
+		158687A92C03DC4E00506D69 /* ChartHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartHelpers.swift; sourceTree = "<group>"; };
 		15E2BD492BFBDF78003EA777 /* CoinGekoWallester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoinGekoWallester.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15E2BD4C2BFBDF78003EA777 /* CoinGekoWallesterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinGekoWallesterApp.swift; sourceTree = "<group>"; };
 		15E2BD4E2BFBDF78003EA777 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -175,6 +179,7 @@
 				15E2BD5D2BFBE006003EA777 /* MarketView.swift */,
 				15E2BD5F2BFBE00E003EA777 /* MarketViewModel.swift */,
 				15E3AEF82BFE93FF00B6DFC5 /* CoinList.swift */,
+				1586878D2C03AE0600506D69 /* ChartView.swift */,
 			);
 			path = Market;
 			sourceTree = "<group>";
@@ -196,6 +201,7 @@
 				15E2BD652BFBE02C003EA777 /* NetworkingManager.swift */,
 				15E2BD672BFBE038003EA777 /* AsyncImage.swift */,
 				153F52A92BFFE06E008DAB2B /* CoinListHelpers.swift */,
+				158687A92C03DC4E00506D69 /* ChartHelpers.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -337,6 +343,8 @@
 				15E2BD662BFBE02C003EA777 /* NetworkingManager.swift in Sources */,
 				15E2BD992BFBE0F8003EA777 /* CoinDataService.swift in Sources */,
 				15E2BD4D2BFBDF78003EA777 /* CoinGekoWallesterApp.swift in Sources */,
+				1586878E2C03AE0600506D69 /* ChartView.swift in Sources */,
+				158687AA2C03DC4E00506D69 /* ChartHelpers.swift in Sources */,
 				15E2BD5E2BFBE006003EA777 /* MarketView.swift in Sources */,
 				15EEA2312C032E03007E688D /* LocationManager.swift in Sources */,
 				1508EC312BFCE5C300BDB011 /* TabBar.swift in Sources */,

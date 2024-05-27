@@ -7,10 +7,12 @@
 
 import Combine
 import Foundation
+import SwiftUI
 
 class MarketViewModel: ObservableObject {
     @Published var allCoins: [CoinModel] = []
     @Published var sortedCoins: [CoinModel] = []
+    @Published var sparklineIn7D: [Double] = []
     
     @Published var isLoading = false
     @Published var errorMessage: String? = nil
@@ -55,9 +57,11 @@ class MarketViewModel: ObservableObject {
                 }
             } receiveValue: { coins in
                 self.allCoins = coins
+                self.sparklineIn7D = coins.flatMap { $0.sparklineIn7D?.price ?? [] }
             }
             .store(in: &cancellables)
     }
+
     
     func setupLocationManager() {
         locationManager.currency = { [weak self] currencyCode in
