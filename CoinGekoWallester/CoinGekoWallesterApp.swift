@@ -9,9 +9,9 @@ import SwiftUI
 
 @main
 struct CoinGekoWallesterApp: App {
-  var body: some Scene {
-    WindowGroup {
-      TabBar()
+    var body: some Scene {
+        WindowGroup {
+            DetailView()
+        }
     }
-  }
 }
