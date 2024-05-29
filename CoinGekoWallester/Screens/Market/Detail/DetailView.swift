@@ -36,10 +36,6 @@ struct DetailView: View {
                 if let viewModel = viewModel.coinDetailData {
                     currencyInfoHeader(image: viewModel.image!.thumb, symbol: viewModel.symbol, price: viewModel.marketData.currentPrice[currencyCode] ?? 0.0, rank: viewModel.rank ?? 0, priceChangeIn24h: viewModel.marketData.priceChangePercentage24HInCurrency[currencyCode] ?? 0.0)
                 }
-                
-                ForEach(1...20, id: \.self) { val in
-                    Text("\(val)")
-                }
             }
             .background(GeometryReader {
                 Color.clear.preference(key: ViewOffsetKey.self, value: $0.frame(in: .global).minY)

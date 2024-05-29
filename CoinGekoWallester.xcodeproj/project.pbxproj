@@ -11,6 +11,7 @@
 		1508EC612BFD0F5100BDB011 /* Double+customFormatted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1508EC602BFD0F5100BDB011 /* Double+customFormatted.swift */; };
 		1508EC632BFD109700BDB011 /* Swipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1508EC622BFD109700BDB011 /* Swipe.swift */; };
 		151964982C0752D200A1A84C /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151964972C0752D100A1A84C /* DetailViewModel.swift */; };
+		152CCADE2C07BEBB00045A72 /* DetailChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152CCADD2C07BEBB00045A72 /* DetailChartView.swift */; };
 		153F52AA2BFFE06E008DAB2B /* CoinListHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153F52A92BFFE06E008DAB2B /* CoinListHelpers.swift */; };
 		1541D4932BFE2325007CCFAA /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1541D4922BFE2325007CCFAA /* Font.swift */; };
 		1541D4982BFE24D1007CCFAA /* AppFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1541D4942BFE24D0007CCFAA /* AppFont.swift */; };
@@ -47,6 +48,7 @@
 		1508EC602BFD0F5100BDB011 /* Double+customFormatted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+customFormatted.swift"; sourceTree = "<group>"; };
 		1508EC622BFD109700BDB011 /* Swipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Swipe.swift; sourceTree = "<group>"; };
 		151964972C0752D100A1A84C /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		152CCADD2C07BEBB00045A72 /* DetailChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailChartView.swift; sourceTree = "<group>"; };
 		153F52A92BFFE06E008DAB2B /* CoinListHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinListHelpers.swift; sourceTree = "<group>"; };
 		1541D4922BFE2325007CCFAA /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		1541D4942BFE24D0007CCFAA /* AppFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppFont.swift; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 			children = (
 				15F65CA62C0532290070E9C2 /* DetailView.swift */,
 				151964972C0752D100A1A84C /* DetailViewModel.swift */,
+				152CCADD2C07BEBB00045A72 /* DetailChartView.swift */,
 				15E554FD2C060EE000246FE5 /* SegmentedView.swift */,
 			);
 			path = Detail;
@@ -349,6 +352,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				152CCADE2C07BEBB00045A72 /* DetailChartView.swift in Sources */,
 				15EEA2352C0381F2007E688D /* CurrencyService.swift in Sources */,
 				15E2BD682BFBE038003EA777 /* AsyncImage.swift in Sources */,
 				15E2BD602BFBE00E003EA777 /* MarketViewModel.swift in Sources */,
