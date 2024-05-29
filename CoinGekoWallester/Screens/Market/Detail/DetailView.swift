@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 
 struct DetailView: View {
-    @State var viewModel: DetailViewModel
+    @ObservedObject var viewModel: DetailViewModel
     /// eto perenesti vo viewmodel?
     @State var id: String = "ethereum"
     @State var name: String = "Ethereum"
