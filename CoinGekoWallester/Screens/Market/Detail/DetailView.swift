@@ -16,7 +16,7 @@ struct DetailView: View {
     @State var currencyCode: String = "usd"
     @State var currencySymbol: String = "$" // ex. $, €
     ///
-    
+    @State private var selectedSegment: Segment = .overview
     @State private var scrollOffset: CGFloat = 0
 
     var body: some View {
@@ -32,9 +32,13 @@ struct DetailView: View {
     func buildMainContent() -> some View {
         ScrollView {
             VStack(spacing: 20) {
-                SegmentedView()
+                SegmentedView(selectedSegment: $selectedSegment)
                 if let viewModel = viewModel.coinDetailData {
                     currencyInfoHeader(image: viewModel.image!.thumb, symbol: viewModel.symbol, price: viewModel.marketData.currentPrice[currencyCode] ?? 0.0, rank: viewModel.rank ?? 0, priceChangeIn24h: viewModel.marketData.priceChangePercentage24HInCurrency[currencyCode] ?? 0.0)
+                }
+                
+                ForEach(1...20, id: \.self) { val in
+                    Text("\(val)")
                 }
             }
             .background(GeometryReader {
@@ -113,7 +117,7 @@ struct DetailView: View {
             }
             .foregroundColor(.black)
             
-            SegmentedView()
+            SegmentedView(selectedSegment: $selectedSegment)
         }
         .background(.white)
         .frame(height: 10)

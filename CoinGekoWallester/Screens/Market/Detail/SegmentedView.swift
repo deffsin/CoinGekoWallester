@@ -7,28 +7,36 @@
 
 import SwiftUI
 
+enum Segment: String, CaseIterable {
+    case overview = "Overview"
+    case info = "Info"
+    case markets = "Markets"
+    case similarCoins = "Similar Coins"
+    case historicalData = "Historical Data"
+}
+
+
 struct SegmentedView: View {
-    @State private var selected: String = "Overview"
+    @Binding var selectedSegment: Segment
     @Namespace var name
-    let segments: [String] = ["Overview", "Info", "Markets", "Similar Coins", "Historical Data"] // enum??
-    
+
     var body: some View {
         ScrollView(.horizontal) {
             HStack(spacing: 30) {
-                ForEach(segments, id: \.self) { segment in
+                ForEach(Segment.allCases, id: \.self) { segment in
                     Button {
-                        selected = segment
+                        selectedSegment = segment
                     } label: {
                         VStack {
-                            Text(segment)
+                            Text(segment.rawValue)
                                 .font(.fontSemiBoldSmall)
                                 .fontWeight(.medium)
-                                .foregroundColor(selected == segment ? .green : Color(uiColor: .systemGray))
+                                .foregroundColor(selectedSegment.rawValue == segment.rawValue ? .green : Color(uiColor: .systemGray))
                             ZStack {
                                 Capsule()
                                     .fill(Color.clear)
                                     .frame(height: 4)
-                                if selected == segment {
+                                if selectedSegment.rawValue == segment.rawValue {
                                     Capsule()
                                         .fill(Color.green)
                                         .frame(height: 2)
