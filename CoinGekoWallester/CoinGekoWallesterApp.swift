@@ -11,7 +11,8 @@ import SwiftUI
 struct CoinGekoWallesterApp: App {
     var body: some Scene {
         WindowGroup {
-            DetailView()
+            //MarketView(viewModel: MarketViewModel())
+            DetailView(viewModel: DetailViewModel())
         }
     }
 }

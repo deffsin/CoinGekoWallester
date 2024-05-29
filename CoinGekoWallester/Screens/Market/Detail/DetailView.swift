@@ -6,13 +6,25 @@
 //
 
 import SwiftUI
+import Combine
 
 struct DetailView: View {
+    @State var viewModel: DetailViewModel
+    /// eto perenesti vo viewmodel?
+    @State var id: String = "ethereum"
+    @State var name: String = "Ethereum"
+    @State var currencyCode: String = "usd"
+    @State var currencySymbol: String = "$" // ex. $, €
+    ///
+    
     @State private var scrollOffset: CGFloat = 0
 
     var body: some View {
         ZStack {
             buildMainContent()
+        }
+        .task {
+            viewModel.fetchCryptoDetails(id: id, currencyCode: currencyCode)
         }
     }
     
@@ -21,7 +33,9 @@ struct DetailView: View {
         ScrollView {
             VStack(spacing: 20) {
                 SegmentedView()
-                currencyInfoHeader()
+                if let viewModel = viewModel.coinDetailData {
+                    currencyInfoHeader(image: viewModel.image!.thumb, symbol: viewModel.symbol, price: viewModel.marketData.currentPrice[currencyCode] ?? 0.0, rank: viewModel.rank ?? 0, priceChangeIn24h: viewModel.marketData.priceChangePercentage24HInCurrency[currencyCode] ?? 0.0)
+                }
             }
             .background(GeometryReader {
                 Color.clear.preference(key: ViewOffsetKey.self, value: $0.frame(in: .global).minY)
@@ -30,7 +44,9 @@ struct DetailView: View {
         }
         .overlay(alignment: .top) {
             if scrollOffset < -25 {
-                customNavBar()
+                if let viewModel = viewModel.coinDetailData {
+                    customNavBar(image: viewModel.image!.thumb, name: name, price: viewModel.marketData.currentPrice[currencyCode] ?? 0.0, priceChangeIn24h: viewModel.marketData.priceChangePercentage24HInCurrency[currencyCode] ?? 0.0)
+                }
             }
         }
         .onPreferenceChange(ViewOffsetKey.self) { offset in
@@ -40,98 +56,94 @@ struct DetailView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
-    func currencyInfoHeader() -> some View {
+    func currencyInfoHeader(image: String, symbol: String, price: Double, rank: Int, priceChangeIn24h: Double) -> some View {
         VStack(spacing: 7) {
-            HStack(spacing: 4) {
-                //AsyncImage(url: URL(string: image)!)
-                Image(systemName: "soccerball")
+            HStack(spacing: 5) {
+                AsyncImage(url: URL(string: image)!)
                     .frame(width: 20, height: 20)
                 
                 VStack(alignment: .leading) {
-                    Text("Bitcoin")
+                    Text(symbol.uppercased())
                         .font(.fontSemiBoldSmall)
                         .fixedSize(horizontal: false, vertical: true)
                         .multilineTextAlignment(.leading)
-                        .padding(.leading, 5)
                 }
                 
-                Text("BTC Price")
-                    .font(.fontRegularSmall)
-                    .frame(minWidth: 75, alignment: .leading)
-                
-                Text("#2")
-                    .font(.fontRegularSmall)
-                    .padding(5)
-                    .background(.gray.opacity(0.1))
-                    .cornerRadius(5)
+                HStack(spacing: 10) {
+                    Text("\(symbol.uppercased()) Price")
+                        .font(.fontRegularUltraSmall)
+                        .frame(minWidth: 45, alignment: .leading)
+                        .opacity(0.7)
+                    
+                    Text("\(rank)")
+                        .font(.fontRegularUltraSmall)
+                        .padding(5)
+                        .background(.gray.opacity(0.1))
+                        .cornerRadius(5)
+                }
+                .padding(.leading, 3)
                 
                 Spacer()
             }
             
             HStack {
-                Text("DKK 26,707.64")
+                Text("\(currencySymbol)\(price.customFormatted)")
                     .frame(minWidth: 25, alignment: .leading)
                     .font(.fontSemiBoldLarge)
                 
                 HStack(spacing: 2) {
-                    getTriangle(1.0)
-                    priceChangeView(priceChange: 1.0)
+                    getTriangle(priceChangeIn24h)
+                    priceChangeView(priceChange: priceChangeIn24h)
                 }
                 .frame(maxWidth: 100, alignment: .leading)
-                // font drugoj???
                 
                 Spacer()
             }
-            
-            //raznica s bitkom?
         }
         .frame(maxWidth: .infinity)
-        .frame(height: 60)
+        .frame(height: 80)
     }
     
-    func customNavBar() -> some View {
+    func customNavBar(image: String, name: String, price: Double, priceChangeIn24h: Double) -> some View {
         VStack {
             HStack {
-                currencyInfoInNavBar()
+                currencyInfoInNavBar(image: image, name: name, price: price, priceChangeIn24h: priceChangeIn24h)
                 
                 Spacer()
             }
-            .padding()
             .foregroundColor(.black)
             
             SegmentedView()
         }
         .background(.white)
-        .frame(height: 40)
-        .padding(.top, 5)
+        .frame(height: 10)
+        .padding(.top, 25)
+        .padding(.horizontal, 10)
     }
     
-    func currencyInfoInNavBar() -> some View {
+    func currencyInfoInNavBar(image: String, name: String, price: Double, priceChangeIn24h: Double) -> some View {
         HStack(spacing: 4) {
-            //AsyncImage(url: URL(string: image)!)
-            HStack {
-                Image(systemName: "soccerball")
+            HStack(spacing: 2) {
+                AsyncImage(url: URL(string: image)!)
                     .frame(width: 20, height: 20)
                 
-                Text("Bitcoin")
+                Text(name)
                     .font(.fontSemiBoldSmall)
                     .fixedSize(horizontal: false, vertical: true)
                     .multilineTextAlignment(.leading)
-                    .padding(.leading, 5)
             }
             .padding(.vertical, 5)
             
             HStack {
-                Text("DKK 26,707.64")
+                Text("\(currencySymbol)\(price.customFormatted)")
                     .frame(minWidth: 25, alignment: .leading)
                     .font(.fontSemiBoldSmall)
                 
                 HStack(spacing: 2) {
-                    getTriangle(1.0)
-                    priceChangeView(priceChange: 1.0)
+                    getTriangle(priceChangeIn24h)
+                    priceChangeView(priceChange: priceChangeIn24h)
                 }
                 .frame(minWidth: 50, alignment: .leading)
-                // font drugoj???
                 
                 Spacer()
             }
@@ -141,5 +153,5 @@ struct DetailView: View {
 }
 
 #Preview {
-    DetailView()
+    DetailView(viewModel: DetailViewModel())
 }
