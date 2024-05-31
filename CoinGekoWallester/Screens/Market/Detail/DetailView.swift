@@ -13,7 +13,7 @@ struct DetailView: View {
     /// eto perenesti vo viewmodel?
     @State var id: String = "ethereum"
     @State var name: String = "Ethereum"
-    @State var currencyCode: String = "usd"
+    @State var currencyCode: String = "eur"
     @State var currencySymbol: String = "$" // ex. $, €
     ///
     @State private var selectedSegment: Segment = .overview
@@ -25,6 +25,7 @@ struct DetailView: View {
         }
         .task {
             viewModel.fetchCryptoDetails(id: id, currencyCode: currencyCode)
+            viewModel.fetchCryptoHistoricalChartData(id: id, currencyCode: currencyCode, timeframe: "7d", forceUpdate: true)
         }
     }
     
@@ -35,6 +36,10 @@ struct DetailView: View {
                 SegmentedView(selectedSegment: $selectedSegment)
                 if let viewModel = viewModel.coinDetailData {
                     currencyInfoHeader(image: viewModel.image!.thumb, symbol: viewModel.symbol, price: viewModel.marketData.currentPrice[currencyCode] ?? 0.0, rank: viewModel.rank ?? 0, priceChangeIn24h: viewModel.marketData.priceChangePercentage24HInCurrency[currencyCode] ?? 0.0)
+                }
+                
+                if let data = viewModel.coinHistoricalChartData?.prices.flatMap({ $0 }) {
+                    DetailChartView(data: data)
                 }
             }
             .background(GeometryReader {
