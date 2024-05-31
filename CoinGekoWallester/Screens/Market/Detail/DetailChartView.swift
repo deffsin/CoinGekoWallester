@@ -9,7 +9,24 @@ import SwiftUI
 
 struct DetailChartView: View {
     @State private var selectedButton: String = "24h"
+    
+    var data: [Double]
+    var priceHigher: Double {
+        let maxPrice = data.max() ?? 0
+        let range = (data.max() ?? 0) - (data.min() ?? 0)
+        let step = range / 8
+        
+        return maxPrice + step
+    }
 
+    var priceLower: Double {
+        let minPrice = data.min() ?? 0
+        let range = (data.max() ?? 0) - (data.min() ?? 0)
+        let step = range / 8
+        
+        return minPrice - step
+    }
+    
     var body: some View {
         ZStack {
             buildMainContent()
@@ -22,13 +39,12 @@ struct DetailChartView: View {
             VStack(alignment: .leading, spacing: 5) {
                 textHeader()
                 chartSegmentedView()
-                
+                chartView()
+                    .padding(.vertical, 95)
                 Spacer()
             }
-            
-            Spacer()
         }
-        .padding(.horizontal, 15)
+        .padding(.horizontal, 10)
     }
     
     func textHeader() -> some View {
@@ -112,13 +128,45 @@ struct DetailChartView: View {
         .background(Color.blue.opacity(0.1))
         .cornerRadius(10)
     }
-}
-
-#Preview {
-    DetailChartView()
-}
-
-
-#Preview {
-    DetailChartView()
+    
+    func chartView() -> some View {
+        ZStack {
+            HStack(spacing: 5) {
+                if !data.isEmpty {
+                    LineGraph(dataPoints: data)
+                        .stroke(Color.green, style: StrokeStyle(lineWidth: 1, lineCap: .round, lineJoin: .round))
+                } else {
+                    Text("No historical chart data available")
+                        .frame(width: 140)
+                }
+                
+                Spacer()
+                
+                VStack(alignment: .leading, spacing: 55) {
+                    
+                    Text("\(priceHigher.customFormatted)")
+                    
+                    ForEach(pricesToShow(), id: \.self) { price in
+                        Text("\(price, specifier: "%.2f")")
+                    }
+                    
+                    Text("\(priceLower.customFormatted)")
+                }
+                .font(.fontRegularUltraSmall)
+                .opacity(0.8)
+                .frame(minWidth: 50)
+                .frame(height: 450)
+            }
+        }
+        .frame(maxHeight: 350)
+    }
+    
+    func pricesToShow() -> [Double] {
+        let maxPrice = data.max() ?? 0
+        let minPrice = data.min() ?? 0
+        let range = maxPrice - minPrice
+        let step = range / 5
+        
+        return stride(from: maxPrice, through: minPrice, by: -step).map { $0 }
+    }
 }
