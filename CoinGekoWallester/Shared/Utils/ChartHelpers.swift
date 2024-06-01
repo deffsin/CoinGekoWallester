@@ -32,3 +32,4 @@ struct LineGraph: Shape {
         return path
     }
 }
+

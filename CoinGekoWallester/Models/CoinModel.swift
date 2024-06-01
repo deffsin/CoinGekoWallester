@@ -30,7 +30,6 @@ struct CoinModel: Identifiable, Codable {
         case priceChangePercentage24H = "price_change_percentage_24h_in_currency"
         case priceChangePercentage7D = "price_change_percentage_7d_in_currency"
         case sparklineIn7D = "sparkline_in_7d"
-    
   }
 }
 
