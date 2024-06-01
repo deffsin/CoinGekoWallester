@@ -9,10 +9,9 @@ import SwiftUI
 
 @main
 struct CoinGekoWallesterApp: App {
-    var body: some Scene {
-        WindowGroup {
-            //MarketView(viewModel: MarketViewModel())
-            DetailView(viewModel: DetailViewModel())
-        }
+  var body: some Scene {
+    WindowGroup {
+      TabBar()
     }
+  }
 }
